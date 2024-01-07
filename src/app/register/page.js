@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import {signIn} from "next-auth/react";
 
 export default function RegisterPage(){
     const [email, setEmail] = useState('');
@@ -46,7 +47,7 @@ export default function RegisterPage(){
                 <input type="password" placeholder="password" value={password} onChange={val => setPassword(val.target.value)} disabled={creatingUser}></input>
                 <button className="w-full bg-red-600 text-white px-4 py-2 rounded-full mb-2" type="submit" disabled={creatingUser}>Register</button>
                 <div className="my-4 text-center text-gray-500">or login with provider</div>
-                <button className="w-full bg-blue-500 text-white px-4 py-2 rounded-full mb-2">Login with google</button>
+                <button type="button" className="w-full bg-blue-500 text-white px-4 py-2 rounded-full mb-2"onClick={() => signIn('google',{callbackUrl:'/'})}>Login with google</button>
             </form>
         </section>
     );
