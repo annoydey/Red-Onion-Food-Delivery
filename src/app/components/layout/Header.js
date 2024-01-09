@@ -26,7 +26,7 @@ export default function Header() {
               <>
 
                 <Link href={'/profile'} className='whitespace-nowrap'>Hello, {userName}</Link>
-                <button className='bg-red-600 rounded-full text-white px-6 py-2' onClick={()=> signOut()}>Logout</button>
+                <button className='bg-red-600 rounded-full text-white px-6 py-2' onClick={async () => { await signOut(); window.location.href = '/'; }}>Logout</button>
               </>
             )}
             {status === 'unauthenticated' && (
