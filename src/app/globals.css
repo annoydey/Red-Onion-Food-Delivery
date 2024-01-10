@@ -21,8 +21,8 @@ input[type="text"]:disabled {
     @apply bg-gray-300 cursor-not-allowed border-0 text-gray-500;
 }
 
-button{
-    @apply border border-gray-300 rounded-xl px-6 py-2;
+button, .button{
+    @apply flex border justify-center border-gray-300 rounded-xl px-6 py-2;
 }
 button[type="submit"], .submit{
     @apply border-0 bg-red-600 text-white;

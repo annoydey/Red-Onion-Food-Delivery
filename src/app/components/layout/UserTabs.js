@@ -4,14 +4,13 @@ import { usePathname } from "next/navigation";
 
 export default function UserTabs({isAdmin}){
     const path = usePathname();
-    console.log("Checking admin",isAdmin)
     return(
         <div className="flex mx-auto gap-2 tabs justify-center">
                 <Link className={path === '/profile'? 'active': ''} href={'/profile'}>Profile</Link>
                 {isAdmin == true ? (
                     <>
                         <Link className={path === '/categories'? 'active': ''} href={'/categories'}>Categories</Link>
-                        <Link className={path === '/menu-items'? 'active': ''} href={'/menu-items'}>Menu Items</Link>
+                        <Link className={/menu-item/.test(path)? 'active': ''} href={'/menu-items'}>Menu Items</Link>
                         <Link className={path === '/users'? 'active': ''} href={'/users'}>Users</Link>
                     </>
                 ) : null}

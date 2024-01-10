@@ -28,6 +28,11 @@ export default function CategoriesPage(){
         return 'Loading user info ...'
     }
 
+    if (!profileData.admin) {
+        return 'Not an admin';
+    }
+    
+
     async function handleCategorySubmit(val){
         val.preventDefault();
         const creationPromise = new Promise(async(resolve, reject) => {
