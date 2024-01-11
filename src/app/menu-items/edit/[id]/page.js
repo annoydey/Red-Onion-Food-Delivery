@@ -121,8 +121,6 @@ export default function EditMenuItemPage() {
                         </select>
                         <label>Price</label>
                         <input type="text" value={price} onChange={val => setPrice(val.target.value)}></input>
-                    </div>
-                    <div>
                         <button className="mb-2" type="submit">Save</button>
                     </div>
                 </div>
