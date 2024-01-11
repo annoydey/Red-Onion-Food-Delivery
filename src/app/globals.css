@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
+select,
 input[type="email"],
 input[type="password"],
 input[type="tel"],
@@ -21,7 +21,10 @@ input[type="text"]:disabled {
     @apply bg-gray-300 cursor-not-allowed border-0 text-gray-500;
 }
 
-button, .button{
+button{
+    @apply border justify-center border-gray-300 rounded-xl px-6 py-2;
+}
+.button{
     @apply flex border justify-center border-gray-300 rounded-xl px-6 py-2;
 }
 button[type="submit"], .submit{

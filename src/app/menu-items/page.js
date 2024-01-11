@@ -13,7 +13,18 @@ export default function MenuItemsPage() {
     useEffect(() => {
         fetch('/api/menu-items').then(res => {
             res.json().then(menuItems => {
-                setMenuItems(menuItems);
+                fetch('/api/categories').then(res => {
+                    res.json().then(categories => {
+                        const updatedMenuItems = menuItems.map(item => {
+                            const matchedCategory = categories.find(category => category._id === item.category);
+                            return {
+                                ...item,
+                                categoryName: matchedCategory ? matchedCategory.name : 'Unknown Category'
+                            };
+                        });
+                        setMenuItems(updatedMenuItems)
+                    });
+                });
             })
         })
     },[])
@@ -35,8 +46,14 @@ export default function MenuItemsPage() {
             <div>
                 <h2 className="text-sm text-gray-500 mt-8">Edit menu item: </h2>
                 {menuItems?.length > 0 && menuItems.map(item => (
-                    <Link key={item.id} href={'/menu-items/edit/'+ item._id} className="mb-1">
-                        {item.name}
+                    <Link key={item.id} href={'/menu-items/edit/'+ item._id} className="button mb-1">
+                        Food Name : {item.name}
+                        <span className="px-4">
+                            Category : {item.categoryName}
+                        </span>
+                        <span className="px-4">
+                            Price : ${item.price}
+                        </span>
                     </Link>
                 ))}
             </div>

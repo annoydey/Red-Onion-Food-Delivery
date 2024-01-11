@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserTabs from "../../components/layout/UserTabs";
 import { useProfile } from "../../components/UseProfile";
 import toast from "react-hot-toast";
@@ -11,11 +11,23 @@ export default function NewMenuItemPage() {
 
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
+    const [categories, setCategories] = useState([]);
+    const [category, setCategory] = useState('');
     const [redirectToItems, setRedirectToItems] = useState(false);
+    const isSaveButtonDisabled = category === '';
+
+    useEffect(() => {
+        fetch('/api/categories').then(res => {
+            res.json().then(categories => {
+                setCategories(categories);
+            });
+        })
+    },[])
+
 
     async function handleFormSubmit(val){
         val.preventDefault();
-        const data = {name,price};
+        const data = {name,price,category};
         const savingPromise = new Promise(async (resolve, reject) => {
             const response = await fetch('/api/menu-items',{
                 method: 'POST',
@@ -64,11 +76,18 @@ export default function NewMenuItemPage() {
                     <div className="grow">
                         <label>Item name</label>
                         <input type="text" value={name} onChange={val => setName(val.target.value)}></input>
+                        <label>Category</label>
+                        <select value={category} onChange={val => setCategory(val.target.value)}>
+                            <option value="" disabled>Please select categories</option>
+                            {categories?.length > 0 && categories.map(val => (
+                                <option key={val.id} value={val._id}>{val.name}</option>
+                            ))}
+                        </select>
                         <label>Price</label>
                         <input type="text" value={price} onChange={val => setPrice(val.target.value)}></input>
                     </div>
                     <div>
-                        <button className="mb-2" type="submit">Save</button>
+                        <button className="mb-2" type="submit" disabled={isSaveButtonDisabled}>Save</button>
                     </div>
                 </div>
             </form>
