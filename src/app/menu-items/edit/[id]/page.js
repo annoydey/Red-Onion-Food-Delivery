@@ -63,7 +63,6 @@ export default function EditMenuItemPage() {
             success: 'Saved',
             error: 'Error',
         })
-
         setRedirectToItems(true);
     }
 
