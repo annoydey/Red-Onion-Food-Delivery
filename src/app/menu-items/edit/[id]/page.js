@@ -13,6 +13,7 @@ export default function EditMenuItemPage() {
     const [price, setPrice] = useState('');
     const [categoryname, setCategoryName] = useState([]);
     const [categories, setCategories] = useState('');
+    const [prevCategory, setPrevCategory] = useState('');
     const [category, setCategory] = useState('');
     const [redirectToItems, setRedirectToItems] = useState(false);
 
@@ -34,6 +35,7 @@ export default function EditMenuItemPage() {
                     res.json().then(categories => {
                         const updatedCategories = items.map(item => {
                             const matchedCategory = categories.find(category => category._id === item.category);
+                            setPrevCategory(matchedCategory._id)
                             return setCategoryName(matchedCategory.name)
                         });
                     });
@@ -44,7 +46,8 @@ export default function EditMenuItemPage() {
 
     async function handleFormSubmit(val){
         val.preventDefault();
-        const data = {name,price,category, _id:id};
+        const updatedCategory = category !== '' ? category : prevCategory;
+        const data = {name,price,category:updatedCategory, _id:id};
         const savingPromise = new Promise(async (resolve, reject) => {
             const response = await fetch('/api/menu-items',{
                 method: 'PUT',

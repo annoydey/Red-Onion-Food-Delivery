@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import {useProfile} from "../UseProfile";
 
 export default function UserForm({user, onSave}){
     const session = useSession();
