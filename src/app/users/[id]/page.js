@@ -3,13 +3,14 @@ import UserForm from "@/app/components/layout/Userform";
 import UserTabs from "../../components/layout/UserTabs";
 import { useProfile } from "../../components/UseProfile";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 export default function EditUserPage() {
     const {loading:profileLoading, data:profileData} = useProfile();
     const {id} = useParams();
     const [user, setUser] = useState(null);
+    const [redirectToUsers, setRedirectToUsers] = useState(false);
 
     useEffect(()=> {
         fetch('/api/profile?_id='+id).then(res =>{
@@ -38,6 +39,11 @@ export default function EditUserPage() {
             success: 'User saved',
             error: 'Error occurred while saving the user',
         });
+        setRedirectToUsers(true);
+    }
+
+    if(redirectToUsers){
+        return redirect('/users');
     }
 
     if (profileLoading){

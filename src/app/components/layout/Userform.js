@@ -21,7 +21,7 @@ export default function UserForm({user, onSave}){
     return (
         <div className="mt-4 max-w-xs mx-auto flex flex-col items-center rounded-md px-4">
             <div className="mt-4">
-                <Image className="rounded-full" src={userImage} width={100} height={100}></Image>
+                <Image className="rounded-full" src={user.image} width={100} height={100}></Image>
             </div>
             <form className="mt-2 flex flex-col items-center"
                 onSubmit={val => onSave(val, {name:userName,phone, admin, streetAddress,postalCode,city,country})}
